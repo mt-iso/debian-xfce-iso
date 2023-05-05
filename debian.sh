@@ -26,29 +26,29 @@ echo 'deb http://depo.pardus.org.tr/backports yirmibir-backports main contrib no
 chroot kaynak apt update
 
 ### kernel paketini kuralım (Backpots istemiyorsanız -t yirmibir-backports yazısını siliniz!)
-chroot kaynak apt-get install -t yirmibir-backports linux-image-amd64 -y
+chroot kaynak apt install -t yirmibir-backports linux-image-amd64 -y
 
 ### grub paketleri için
-chroot kaynak apt-get install grub-pc-bin grub-efi-ia32-bin grub-efi -y
+chroot kaynak apt install grub-pc-bin grub-efi-ia32-bin grub-efi -y
 
 ### live paketleri için
-chroot kaynak apt-get install live-config live-boot -y 
+chroot kaynak apt install live-config live-boot -y 
 
 ### init paketleri için
-chroot kaynak apt-get install xorg xinit -y
+chroot kaynak apt install xorg xinit -y
 
 ### giriş ekranı kuralım
-chroot kaynak apt-get install lightdm -y
+chroot kaynak apt install lightdm -y
 
 ### firmware paketleri için (Burada kendi donanımınıza göre tercih yapabilirsiniz!) 
-chroot kaynak apt-get install firmware-linux -y
-chroot kaynak apt-get install firmware-linux-free -y
-chroot kaynak apt-get install firmware-linux-nonfree -y
-chroot kaynak apt-get install firmware-misc-nonfree -y
-chroot kaynak apt-get install firmware-amd-graphics -y
-chroot kaynak apt-get install firmware-realtek -y
-chroot kaynak apt-get install bluez-firmware -y
-chroot kaynak apt-get install hdmi2usb-fx2-firmware -y
+chroot kaynak apt install firmware-linux -y
+chroot kaynak apt install firmware-linux-free -y
+chroot kaynak apt install firmware-linux-nonfree -y
+chroot kaynak apt install firmware-misc-nonfree -y
+chroot kaynak apt install firmware-amd-graphics -y
+chroot kaynak apt install firmware-realtek -y
+chroot kaynak apt install bluez-firmware -y
+#chroot kaynak apt install hdmi2usb-fx2-firmware -y
 
 ### benim laptopda bunlar fazlalık! :)
 #chroot kaynak apt-get install atmel-firmware -y
@@ -80,28 +80,28 @@ chroot kaynak apt-get install hdmi2usb-fx2-firmware -y
 
 
 ### Xfce ve gerekli araçları kuralım
-chroot kaynak apt-get install xfce4 xfce4-terminal xfce4-whiskermenu-plugin thunar thunar-archive-plugin xfce4-screenshooter mousepad ristretto -y
-chroot kaynak apt-get install xfce4-datetime-plugin xfce4-timer-plugin xfce4-mount-plugin xfce4-taskmanager xfce4-battery-plugin xfce4-power-manager -y
-chroot kaynak apt-get install network-manager-gnome gvfs-backends blueman qmplay2 -y
+chroot kaynak apt install xfce4 xfce4-terminal xfce4-whiskermenu-plugin thunar thunar-archive-plugin xfce4-screenshooter mousepad ristretto -y
+chroot kaynak apt install xfce4-datetime-plugin xfce4-timer-plugin xfce4-mount-plugin xfce4-taskmanager xfce4-battery-plugin xfce4-power-manager -y
+chroot kaynak apt install network-manager-gnome gvfs-backends blueman qmplay2 -y
 
 ### İsteğe bağlı paketleri kuralım
-chroot kaynak apt-get install inxi gnome-calculator file-roller synaptic librewolf -y
+chroot kaynak apt install inxi gnome-calculator file-roller synaptic librewolf -y
 
 ### Pardus paketleri kuralım 
-chroot kaynak apt-get install pardus-xfce-settings pardus-locales pardus-software -y
-chroot kaynak apt-get install pardus-package-installer pardus-installer pardus-about -y
-chroot kaynak apt-get install pardus-dolunay-grub-theme pardus-gtk-theme pardus-icon-theme -y
+chroot kaynak apt install pardus-xfce-settings pardus-locales pardus-software -y
+chroot kaynak apt install pardus-package-installer pardus-installer pardus-about -y
+chroot kaynak apt install pardus-dolunay-grub-theme pardus-gtk-theme pardus-icon-theme -y
 
 ### Yazıcı tarayıcı ve bluetooth paketlerini kuralım (isteğe bağlı)
-chroot kaynak apt-get install printer-driver-all system-config-printer simple-scan -y
+chroot kaynak apt install printer-driver-all system-config-printer simple-scan -y
 
 
 ### zorunlu kurulu gelen paketleri silelim (isteğe bağlı)
-chroot kaynak apt-get remove xterm termit xarchiver icedtea-netx -y
+chroot kaynak apt remove xterm termit xarchiver icedtea-netx -y
 
 ### Zorunlu değil ama grub güncelleyelim
 chroot kaynak update-grub
-chroot kaynak apt-get upgrade -y
+chroot kaynak apt upgrade -y
 
 umount -lf -R kaynak/* 2>/dev/null
 
