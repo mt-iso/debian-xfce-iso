@@ -87,7 +87,7 @@ EOF
 #rm -f chroot/tmp/17g.deb
 
 #### firmware
-chroot chroot apt-get install firmware-linux firmware-linux-free firmware-linux-nonfree firmware-misc-nonfree firmware-amd-graphics firmware-realtek bluez-firmware -y
+chroot chroot apt-get install firmware-linux firmware-linux-free firmware-linux-nonfree firmware-misc-nonfree firmware-amd-graphics firmware-realtek bluez-firmware -yq
 
 
 #### stock kernel 
