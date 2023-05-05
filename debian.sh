@@ -87,7 +87,7 @@ EOF
 #rm -f chroot/tmp/17g.deb
 
 #### firmware
-chroot chroot apt-get install firmware-linux firmware-linux-free firmware-linux-nonfree firmware-misc-nonfree firmware-amd-graphics firmware-realtek bluez-firmware -yq
+
 # https://github.com/Whonix/whonix-legacy/blob/master/debian/whonix-legacy.preinst#L49
 #echo b43-fwcutter b43-fwcutter/cut_firmware boolean true | debconf-set-selections
 #echo firmware-ipw2x00 firmware-ipw2x00/license/accepted boolean true | debconf-set-selections
@@ -109,7 +109,7 @@ chroot chroot apt-get install xfce4 xfce4-goodies -y
 
 
 #### Install lightdm (for lxde and xfce only)
-chroot chroot apt-get install lightdm lightdm-gtk-greeter -y
+chroot chroot apt-get install firmware-linux firmware-linux-free firmware-linux-nonfree firmware-misc-nonfree firmware-amd-graphics firmware-realtek bluez-firmware -yqinstall lightdm lightdm-gtk-greeter -y
 
 #### Usefull stuff
 chroot chroot apt-get install network-manager-gnome pulseaudio -y
