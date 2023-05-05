@@ -20,7 +20,7 @@ export DEBIAN_FRONTEND=noninteractive
 #### Install dependencies
 if which apt &>/dev/null && [[ -d /var/lib/dpkg && -d /etc/apt ]] ; then
     apt-get update
-    apt-get install curl mtools squashfs-tools grub-pc-bin grub-efi-amd64-bin grub2-common grub-common grub-efi-ia32-bin xorriso debootstrap binutils -y 
+    apt-get install curl mtools squashfs-tools grub-pc-bin grub-efi-amd64-bin grub2-common grub-common grub-efi-ia32-bin xorriso debootstrap binutils -y --no-install-recommends
 #    # For 17g package build
 #    apt-get install git devscripts equivs -y
 fi
@@ -29,129 +29,132 @@ set -ex
 #### Chroot create
 mkdir chroot || true
 
+##### For debian
+debootstrap --variant=minbase --no-check-gpg --no-merged-usr --exclude=usrmerge --arch=amd64 testing chroot https://deb.debian.org/debian
+echo "deb https://deb.debian.org/debian testing main contrib non-free" > chroot/etc/apt/sources.list
 
-### Chroot oluşturmak için
-mkdir kaynak
-chown root kaynak
+#### Set root password
+pass="live"
+echo -e "$pass\n$pass\n" | chroot chroot passwd
 
-### pardus için
-debootstrap --arch=amd64 yirmibir kaynak http://depo.pardus.org.tr/pardus
+#### Fix apt & bind
+# apt sandbox user root
+echo "APT::Sandbox::User root;" > chroot/etc/apt/apt.conf.d/99sandboxroot
+for i in dev dev/pts proc sys; do mount -o bind /$i chroot/$i; done
+chroot chroot apt-get install gnupg -y
 
-### bind bağı için
-for i in dev dev/pts proc sys; do mount -o bind /$i kaynak/$i; done
-
-### depo eklemek için
-echo '### The Official Pardus Package Repositories ###' > kaynak/etc/apt/sources.list
-echo 'deb http://depo.pardus.org.tr/pardus yirmibir main contrib non-free' >> kaynak/etc/apt/sources.list
-echo '# deb-src http://depo.pardus.org.tr/pardus yirmibir main contrib non-free' >> kaynak/etc/apt/sources.list
-echo 'deb http://depo.pardus.org.tr/guvenlik yirmibir main contrib non-free' >> kaynak/etc/apt/sources.list
-echo '# deb-src http://depo.pardus.org.tr/guvenlik yirmibir main contrib non-free' >> kaynak/etc/apt/sources.list
-echo 'deb http://depo.pardus.org.tr/backports yirmibir-backports main contrib non-free' > kaynak/etc/apt/sources.list.d/yirmibir-backports.list
-chroot kaynak apt update
-
-### kernel paketini kuralım (Backpots istemiyorsanız -t yirmibir-backports yazısını siliniz!)
-chroot kaynak apt install -t yirmibir-backports linux-image-amd64 -y
-
-### grub paketleri için
-chroot kaynak apt install grub-pc-bin grub-efi-ia32-bin grub-efi -y
-
-### live paketleri için
-chroot kaynak apt install live-config live-boot -y 
-
-### init paketleri için
-chroot kaynak apt install xorg xinit -y
-
-### giriş ekranı kuralım
-chroot kaynak apt install lightdm -y
-
-### firmware paketleri için (Burada kendi donanımınıza göre tercih yapabilirsiniz!) 
-chroot kaynak apt install firmware-linux -y
-chroot kaynak apt install firmware-linux-free -y
-chroot kaynak apt install firmware-linux-nonfree -y
-chroot kaynak apt install firmware-misc-nonfree -y
-chroot kaynak apt install firmware-amd-graphics -y
-chroot kaynak apt install firmware-realtek -y
-chroot kaynak apt install bluez-firmware -y
-#chroot kaynak apt install hdmi2usb-fx2-firmware -y
-
-### benim laptopda bunlar fazlalık! :)
-#chroot kaynak apt-get install atmel-firmware -y
-#chroot kaynak apt-get install dahdi-firmware-nonfree -y
-#chroot kaynak apt-get install firmware-ath9k-htc -y
-#chroot kaynak apt-get install firmware-atheros -y
-#chroot kaynak apt-get install firmware-b43-installer -y
-#chroot kaynak apt-get install firmware-b43legacy-installer -y
-#chroot kaynak apt-get install firmware-bnx2 -y
-#chroot kaynak apt-get install firmware-bnx2x -y
-#chroot kaynak apt-get install firmware-brcm80211 -y
-#chroot kaynak apt-get install firmware-cavium -y
-#chroot kaynak apt-get install firmware-intel-sound -y
-#chroot kaynak apt-get install firmware-intelwimax -y
-#chroot kaynak apt-get install firmware-ipw2x00 -y
-#chroot kaynak apt-get install firmware-ivtv -y
-#chroot kaynak apt-get install firmware-iwlwifi -y
-#chroot kaynak apt-get install firmware-libertas -y
-#chroot kaynak apt-get install firmware-myricom -y
-#chroot kaynak apt-get install firmware-netronome -y
-#chroot kaynak apt-get install firmware-netxen -y
-#chroot kaynak apt-get install firmware-qcom-soc -y
-#chroot kaynak apt-get install firmware-qlogic -y
-#chroot kaynak apt-get install firmware-samsung -y
-#chroot kaynak apt-get install firmware-siano -y
-#chroot kaynak apt-get install firmware-sof-signed -y
-#chroot kaynak apt-get install firmware-ti-connectivity -y
-#chroot kaynak apt-get install firmware-zd1211 -y
+##### Devuan only
+# chroot chroot apt-get install devuan-keyring -y
 
 
-### Xfce ve gerekli araçları kuralım
-chroot kaynak apt install xfce4 xfce4-terminal xfce4-whiskermenu-plugin thunar thunar-archive-plugin xfce4-screenshooter mousepad ristretto -y
-chroot kaynak apt install xfce4-datetime-plugin xfce4-timer-plugin xfce4-mount-plugin xfce4-taskmanager xfce4-battery-plugin xfce4-power-manager -y
-chroot kaynak apt install network-manager-gnome gvfs-backends blueman qmplay2 -y
+#### grub packages
+#chroot chroot apt-get dist-upgrade -y
+chroot chroot apt-get install grub-pc-bin grub-efi-ia32-bin grub-efi -y
 
-### İsteğe bağlı paketleri kuralım
-chroot kaynak apt install inxi gnome-calculator file-roller synaptic librewolf -y
+#### live packages for debian/devuan
+chroot chroot apt-get install live-config live-boot -y
+echo "DISABLE_DM_VERITY=true" >> chroot/etc/live/boot.conf
 
-### Pardus paketleri kuralım 
-chroot kaynak apt install pardus-xfce-settings pardus-locales pardus-software -y
-chroot kaynak apt install pardus-package-installer pardus-installer pardus-about -y
-chroot kaynak apt install pardus-dolunay-grub-theme pardus-gtk-theme pardus-icon-theme -y
+#### Configure system
+cat > chroot/etc/apt/apt.conf.d/01norecommend << EOF
+APT::Install-Recommends "0";
+APT::Install-Suggests "0";
+EOF
 
-### Yazıcı tarayıcı ve bluetooth paketlerini kuralım (isteğe bağlı)
-chroot kaynak apt install printer-driver-all system-config-printer simple-scan -y
+# Set sh as bash inside of dash (optional)
+rm -f chroot/bin/sh
+ln -s bash chroot/bin/sh
+
+#### Remove bloat files after dpkg invoke (optional)
+cat > chroot/etc/apt/apt.conf.d/02antibloat << EOF
+DPkg::Post-Invoke {"rm -rf /usr/share/locale || true";};
+DPkg::Post-Invoke {"rm -rf /usr/share/man || true";};
+DPkg::Post-Invoke {"rm -rf /usr/share/help || true";};
+DPkg::Post-Invoke {"rm -rf /usr/share/doc || true";};
+DPkg::Post-Invoke {"rm -rf /usr/share/info || true";};
+DPkg::Post-Invoke {"rm -rf /usr/share/i18n || true";};
+EOF
+
+#### Install 17g (optional)
+#mkdir 17g-build && cd 17g-build 
+#git clone https://gitlab.com/ggggggggggggggggg/17g && cd 17g
+#mk-build-deps --install
+#debuild -us -uc -b
+#cd ../../
+#cp 17g-build/17g*.deb chroot/tmp/17g.deb
+#chroot chroot dpkg -i tmp/17g.deb || true
+#chroot chroot apt-get install -f -y
+#rm -f chroot/tmp/17g.deb
 
 
-### zorunlu kurulu gelen paketleri silelim (isteğe bağlı)
-chroot kaynak apt remove xterm termit xarchiver icedtea-netx -y
+#### stock kernel 
+chroot chroot apt-get install linux-image-amd64 -y
+#chroot chroot apt-get install linux-headers-amd64 -y
 
-### Zorunlu değil ama grub güncelleyelim
-chroot kaynak update-grub
-chroot kaynak apt upgrade -y
+#### xorg & desktop pkgs
+chroot chroot apt-get install xserver-xorg xinit -y
 
-umount -lf -R kaynak/* 2>/dev/null
+#### Install xfce
+chroot chroot apt-get install xfce4 xfce4-goodies -y
 
-### temizlik işlemleri
-chroot kaynak apt autoremove
-chroot kaynak apt clean
-rm -f kaynak/root/.bash_history
-rm -rf kaynak/var/lib/apt/lists/*
-find kaynak/var/log/ -type f | xargs rm -f
 
-### isowork filesystem.squashfs oluşturmak için
-mkdir isowork
-mksquashfs kaynak filesystem.squashfs -comp gzip -wildcards
-mkdir -p isowork/live
-mv filesystem.squashfs isowork/live/filesystem.squashfs
 
-cp -pf kaynak/boot/initrd.img* isowork/live/initrd.img
-cp -pf kaynak/boot/vmlinuz* isowork/live/vmlinuz
+#### Install lightdm (for lxde and xfce only)
+chroot chroot apt-get install lightdm lightdm-gtk-greeter -y
 
-### grub işlemleri 
-mkdir -p isowork/boot/grub/
-echo 'insmod all_video' > isowork/boot/grub/grub.cfg
-echo 'menuentry "Start PARDUS Backports Unofficial 64-bit" --class debian {' >> isowork/boot/grub/grub.cfg
-echo '    linux /live/vmlinuz boot=live live-config live-media-path=/live --' >> isowork/boot/grub/grub.cfg
-echo '    initrd /live/initrd.img' >> isowork/boot/grub/grub.cfg
-echo '}' >> isowork/boot/grub/grub.cfg
+#### Usefull stuff
+chroot chroot apt-get install network-manager-gnome pulseaudio -y
+chroot chroot apt-get install network-manager xterm -y
 
-echo "ISO oluşturuluyor.."
-grub-mkrescue isowork -o pardus-xfce-live-$(date +%x).iso
+#### Run chroot shell
+#chroot chroot /bin/bash || true
+
+#### usbcore stuff (for initramfs)
+echo "#!/bin/sh" > chroot/etc/initramfs-tools/scripts/init-top/usbcore.sh
+echo "echo Y > /sys/module/usbcore/parameters/old_scheme_first" >> chroot/etc/initramfs-tools/scripts/init-top/usbcore.sh
+chmod +x chroot/etc/initramfs-tools/scripts/init-top/usbcore.sh
+chroot chroot update-initramfs -u -k all
+
+### Remove sudo (optional)
+chroot chroot apt purge sudo -y
+chroot chroot apt autoremove -y
+
+#### Clear logs and history
+chroot chroot apt-get clean
+rm -f chroot/root/.bash_history
+rm -rf chroot/var/lib/apt/lists/*
+find chroot/var/log/ -type f | xargs rm -f
+
+### create iso template
+mkdir -p debjaro/boot || true
+mkdir -p debjaro/live || true
+ln -s live debjaro/casper || true
+
+#### Copy kernel and initramfs (Debian/Devuan)
+cp -pf chroot/boot/initrd.img-* debjaro/boot/initrd.img
+cp -pf chroot/boot/vmlinuz-* debjaro/boot/vmlinuz
+
+#### Remove initrd.img for minimize iso size (optional)
+rm -rf chroot/boot/initrd.img-*
+
+#### Create squashfs
+for dir in dev dev/pts proc sys ; do
+    while umount -lf -R chroot/$dir 2>/dev/null ; do true; done
+done
+# For better installation time
+#mksquashfs chroot filesystem.squashfs -comp gzip -wildcards
+# For better compress ratio
+mksquashfs chroot filesystem.squashfs -comp xz -wildcards
+
+### move squashfs file
+mv filesystem.squashfs debjaro/live/filesystem.squashfs
+
+#### Write grub.cfg
+mkdir -p debjaro/boot/grub/
+echo 'menuentry "Start Debjaro GNU/Linux 64-bit" --class debjaro {' > debjaro/boot/grub/grub.cfg
+echo '    linux /boot/vmlinuz boot=live live-config quiet --' >> debjaro/boot/grub/grub.cfg
+echo '    initrd /boot/initrd.img' >> debjaro/boot/grub/grub.cfg
+echo '}' >> debjaro/boot/grub/grub.cfg
+
+#### Create iso
+grub-mkrescue debjaro -o debjaro-gnulinux-$(date +%s).iso
