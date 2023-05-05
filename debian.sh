@@ -31,7 +31,7 @@ mkdir chroot || true
 
 ##### For debian
 debootstrap --variant=minbase --no-check-gpg --no-merged-usr --exclude=usrmerge --arch=amd64 testing chroot https://deb.debian.org/debian
-echo "deb https://deb.debian.org/debian testing main contrib non-free" > chroot/etc/apt/sources.list
+echo "deb http://deb.debian.org/debian testing main contrib non-free non-free-firmware" > chroot/etc/apt/sources.list
 
 #### Set root password
 pass="live"
