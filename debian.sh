@@ -56,14 +56,14 @@ chroot chroot apt-get install live-config live-boot -y
 echo "DISABLE_DM_VERITY=true" >> chroot/etc/live/boot.conf
 
 #### Configure system
-cat > chroot/etc/apt/apt.conf.d/01norecommend << EOF
-APT::Install-Recommends "0";
-APT::Install-Suggests "0";
-EOF
+#cat > chroot/etc/apt/apt.conf.d/01norecommend << EOF
+#APT::Install-Recommends "0";
+#APT::Install-Suggests "0";
+#EOF
 
 # Set sh as bash inside of dash (optional)
-rm -f chroot/bin/sh
-ln -s bash chroot/bin/sh
+#rm -f chroot/bin/sh
+#ln -s bash chroot/bin/sh
 
 #### Remove bloat files after dpkg invoke (optional)
 cat > chroot/etc/apt/apt.conf.d/02antibloat << EOF
