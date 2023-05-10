@@ -109,7 +109,7 @@ chroot chroot apt-get install wget xfce4 xfce4-goodies gvfs-backends inxi mintst
 
 
 #### Install lightdm (for lxde and xfce only)
-chroot chroot wget -O $HOME/Desktop/firmware.zip "https://cdimage.debian.org/cdimage/firmware/testing/current/firmware.zip"
+chroot chroot wget -O ~/Desktop/firmware.zip "https://cdimage.debian.org/cdimage/firmware/testing/current/firmware.zip"
 
 chroot chroot apt-get install lightdm lightdm-gtk-greeter -y
 
