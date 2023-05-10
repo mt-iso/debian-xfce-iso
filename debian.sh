@@ -120,10 +120,6 @@ echo "echo Y > /sys/module/usbcore/parameters/old_scheme_first" >> chroot/etc/in
 chmod +x chroot/etc/initramfs-tools/scripts/init-top/usbcore.sh
 chroot chroot update-initramfs -u -k all
 
-### Remove sudo (optional)
-chroot chroot apt purge sudo -y
-chroot chroot apt autoremove -y
-
 #### Clear logs and history
 chroot chroot apt-get clean
 rm -f chroot/root/.bash_history
@@ -162,4 +158,4 @@ echo '    initrd /boot/initrd.img' >> debian/boot/grub/grub.cfg
 echo '}' >> debian/boot/grub/grub.cfg
 
 #### Create iso
-grub-mkrescue debian -o debian-gnulinux-$(date +%s).iso
+grub-mkrescue debian -o debian-xfce-$(date +%x).iso
