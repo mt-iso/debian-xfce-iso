@@ -109,7 +109,8 @@ chroot chroot apt-get install xfce4 xfce4-goodies -y
 
 
 #### Install lightdm (for lxde and xfce only)
-chroot chroot apt-get install firmware-linux firmware-linux-free firmware-linux-nonfree firmware-misc-nonfree firmware-amd-graphics firmware-realtek bluez-firmware -yqinstall lightdm lightdm-gtk-greeter -y
+chroot chroot apt-get install firmware-linux firmware-linux-free firmware-linux-nonfree firmware-misc-nonfree firmware-amd-graphics firmware-realtek bluez-firmware -yq
+chroot chroot apt-get install lightdm lightdm-gtk-greeter -y
 
 #### Usefull stuff
 chroot chroot apt-get install network-manager-gnome pulseaudio -y
