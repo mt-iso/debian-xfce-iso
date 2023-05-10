@@ -30,7 +30,7 @@ set -ex
 mkdir chroot || true
 
 ##### For debian
-debootstrap --variant=minbase --no-check-gpg --no-merged-usr --exclude=usrmerge --arch=amd64 testing chroot https://deb.debian.org/debian
+debootstrap --variant=minbase --arch=amd64 testing chroot https://deb.debian.org/debian
 echo "deb http://deb.debian.org/debian testing main contrib non-free non-free-firmware" > chroot/etc/apt/sources.list
 
 #### Set root password
@@ -107,14 +107,9 @@ chroot chroot apt-get install xserver-xorg xinit -y
 chroot chroot apt-get install wget xfce4 xfce4-goodies gvfs-backends inxi mintstick gnome-calculator file-roller synaptic -y
 
 
+chroot chroot wget https://cdimage.debian.org/cdimage/firmware/testing/current/firmware.zip
 
-#### Install lightdm (for lxde and xfce only)
-chroot chroot wget -O ~/Desktop/firmware.zip "https://cdimage.debian.org/cdimage/firmware/testing/current/firmware.zip"
-
-chroot chroot apt-get install lightdm lightdm-gtk-greeter -y
-
-#### Usefull stuff
-chroot chroot apt-get install network-manager-gnome pulseaudio -y
+chroot chroot apt-get install lightdm lightdm-gtk-greeter network-manager-gnome pulseaudio -y
 
 #### Run chroot shell
 #chroot chroot /bin/bash || true
