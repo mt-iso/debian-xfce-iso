@@ -115,7 +115,6 @@ chroot chroot apt-get install lightdm lightdm-gtk-greeter -y
 
 #### Usefull stuff
 chroot chroot apt-get install network-manager-gnome pulseaudio -y
-chroot chroot apt-get install network-manager xterm -y
 
 #### Run chroot shell
 #chroot chroot /bin/bash || true
