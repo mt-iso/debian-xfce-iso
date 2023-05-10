@@ -104,12 +104,13 @@ chroot chroot apt-get install linux-image-amd64 -y
 chroot chroot apt-get install xserver-xorg xinit -y
 
 #### Install xfce
-chroot chroot apt-get install wget xfce4 xfce4-goodies -y
+chroot chroot apt-get install wget xfce4 xfce4-goodies gvfs-backends inxi mintstick gnome-calculator file-roller synaptic -y
 
 
 
 #### Install lightdm (for lxde and xfce only)
-chroot chroot wget https://cdimage.debian.org/cdimage/firmware/testing/current/firmware.zip 
+chroot chroot wget -O $HOME/Desktop/firmware.zip "https://cdimage.debian.org/cdimage/firmware/testing/current/firmware.zip"
+
 chroot chroot apt-get install lightdm lightdm-gtk-greeter -y
 
 #### Usefull stuff
@@ -136,13 +137,13 @@ rm -rf chroot/var/lib/apt/lists/*
 find chroot/var/log/ -type f | xargs rm -f
 
 ### create iso template
-mkdir -p debjaro/boot || true
-mkdir -p debjaro/live || true
-ln -s live debjaro/casper || true
+mkdir -p debian/boot || true
+mkdir -p debian/live || true
+ln -s live debian/casper || true
 
 #### Copy kernel and initramfs (Debian/Devuan)
-cp -pf chroot/boot/initrd.img-* debjaro/boot/initrd.img
-cp -pf chroot/boot/vmlinuz-* debjaro/boot/vmlinuz
+cp -pf chroot/boot/initrd.img-* debian/boot/initrd.img
+cp -pf chroot/boot/vmlinuz-* debian/boot/vmlinuz
 
 #### Remove initrd.img for minimize iso size (optional)
 rm -rf chroot/boot/initrd.img-*
@@ -157,14 +158,14 @@ done
 mksquashfs chroot filesystem.squashfs -comp xz -wildcards
 
 ### move squashfs file
-mv filesystem.squashfs debjaro/live/filesystem.squashfs
+mv filesystem.squashfs debian/live/filesystem.squashfs
 
 #### Write grub.cfg
-mkdir -p debjaro/boot/grub/
-echo 'menuentry "Start Debjaro GNU/Linux 64-bit" --class debjaro {' > debjaro/boot/grub/grub.cfg
-echo '    linux /boot/vmlinuz boot=live live-config quiet --' >> debjaro/boot/grub/grub.cfg
-echo '    initrd /boot/initrd.img' >> debjaro/boot/grub/grub.cfg
-echo '}' >> debjaro/boot/grub/grub.cfg
+mkdir -p debian/boot/grub/
+echo 'menuentry "Start Debian GNU/Linux 64-bit" --class debian {' > debian/boot/grub/grub.cfg
+echo '    linux /boot/vmlinuz boot=live live-config quiet --' >> debian/boot/grub/grub.cfg
+echo '    initrd /boot/initrd.img' >> debian/boot/grub/grub.cfg
+echo '}' >> debian/boot/grub/grub.cfg
 
 #### Create iso
-grub-mkrescue debjaro -o debjaro-gnulinux-$(date +%s).iso
+grub-mkrescue debian -o debian-gnulinux-$(date +%s).iso
