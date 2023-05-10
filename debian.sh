@@ -20,7 +20,7 @@ export DEBIAN_FRONTEND=noninteractive
 #### Install dependencies
 if which apt &>/dev/null && [[ -d /var/lib/dpkg && -d /etc/apt ]] ; then
     apt-get update
-    apt-get install curl mtools squashfs-tools grub-pc-bin grub-efi-amd64-bin grub2-common grub-common grub-efi-ia32-bin xorriso debootstrap binutils -y --no-install-recommends
+    apt-get install curl mtools squashfs-tools grub-pc-bin grub-efi-amd64-bin grub2-common grub-common grub-efi-ia32-bin xorriso debootstrap binutils -y
 #    # For 17g package build
 #    apt-get install git devscripts equivs -y
 fi
@@ -34,12 +34,12 @@ debootstrap --variant=minbase --no-check-gpg --no-merged-usr --exclude=usrmerge 
 echo "deb http://deb.debian.org/debian testing main contrib non-free non-free-firmware" > chroot/etc/apt/sources.list
 
 #### Set root password
-pass="live"
-echo -e "$pass\n$pass\n" | chroot chroot passwd
+#pass="live"
+#echo -e "$pass\n$pass\n" | chroot chroot passwd
 
 #### Fix apt & bind
 # apt sandbox user root
-echo "APT::Sandbox::User root;" > chroot/etc/apt/apt.conf.d/99sandboxroot
+#echo "APT::Sandbox::User root;" > chroot/etc/apt/apt.conf.d/99sandboxroot
 for i in dev dev/pts proc sys; do mount -o bind /$i chroot/$i; done
 chroot chroot apt-get install gnupg -y
 
