@@ -104,12 +104,13 @@ chroot chroot apt-get install linux-image-amd64 -y
 chroot chroot apt-get install xserver-xorg xinit -y
 
 #### Install xfce
-chroot chroot apt-get install xfce4 xfce4-goodies -y
+chroot chroot apt-get install wget xfce4 xfce4-goodies -y
 
 
 
 #### Install lightdm (for lxde and xfce only)
-chroot chroot apt-get install firmware-linux firmware-linux-free firmware-linux-nonfree firmware-misc-nonfree firmware-amd-graphics firmware-realtek bluez-firmware -yq
+chroot chroot mkdir firmwares
+chroot chroot wget -O /firmwares/firmwares.zip "https://cdimage.debian.org/cdimage/firmware/testing/current/firmware.zip"
 chroot chroot apt-get install lightdm lightdm-gtk-greeter -y
 
 #### Usefull stuff
