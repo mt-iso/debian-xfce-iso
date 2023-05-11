@@ -66,6 +66,9 @@ chroot chroot apt-get install wget xfce4 xfce4-goodies gvfs-backends inxi mintst
 
 
 chroot chroot wget https://cdimage.debian.org/cdimage/firmware/testing/current/firmware.zip
+chroot chroot wget https://github.com/muslimos/17g-installer/releases/download/current/17g-installer_1.0_all.deb
+apt install ./17g-installer_1.0_all.deb -y
+rm 17g-installer_1.0_all.deb
 
 chroot chroot apt-get install lightdm lightdm-gtk-greeter network-manager-gnome pulseaudio -y
 chroot chroot apt-get remove xterm -y
