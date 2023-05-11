@@ -158,4 +158,4 @@ echo '    initrd /boot/initrd.img' >> debian/boot/grub/grub.cfg
 echo '}' >> debian/boot/grub/grub.cfg
 
 #### Create iso
-grub-mkrescue debian -o debian-xfce-$(date +%x).iso
+grub-mkrescue debian -o debian.iso
