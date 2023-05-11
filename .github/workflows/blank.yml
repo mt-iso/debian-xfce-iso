@@ -16,7 +16,7 @@ jobs:
         run: |
           sudo bash debian.sh
           sudo mkdir -p /output
-          sudo mv *.iso /output/*.iso
+          sudo mv debian.iso /output/debian.iso
 
 
       - uses: "marvinpinto/action-automatic-releases@latest"
