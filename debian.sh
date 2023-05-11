@@ -75,16 +75,6 @@ DPkg::Post-Invoke {"rm -rf /usr/share/info || true";};
 DPkg::Post-Invoke {"rm -rf /usr/share/i18n || true";};
 EOF
 
-#### Install 17g (optional)
-#mkdir 17g-build && cd 17g-build 
-#git clone https://gitlab.com/ggggggggggggggggg/17g && cd 17g
-#mk-build-deps --install
-#debuild -us -uc -b
-#cd ../../
-#cp 17g-build/17g*.deb chroot/tmp/17g.deb
-#chroot chroot dpkg -i tmp/17g.deb || true
-#chroot chroot apt-get install -f -y
-#rm -f chroot/tmp/17g.deb
 
 #### firmware
 
@@ -110,6 +100,18 @@ chroot chroot apt-get install wget xfce4 xfce4-goodies gvfs-backends inxi mintst
 chroot chroot wget https://cdimage.debian.org/cdimage/firmware/testing/current/firmware.zip
 
 chroot chroot apt-get install lightdm lightdm-gtk-greeter network-manager-gnome pulseaudio -y
+chroot chroot apt-get remove xterm -y
+
+#### Install 17g (optional)
+mkdir 17g-build && cd 17g-build 
+git clone https://gitlab.com/ggggggggggggggggg/17g && cd 17g
+mk-build-deps --install
+debuild -us -uc -b
+cd ../../
+cp 17g-build/17g*.deb chroot/tmp/17g.deb
+chroot chroot dpkg -i tmp/17g.deb || true
+chroot chroot apt-get install -f -y
+rm -f chroot/tmp/17g.deb
 
 #### Run chroot shell
 #chroot chroot /bin/bash || true
