@@ -21,8 +21,6 @@ export DEBIAN_FRONTEND=noninteractive
 if which apt &>/dev/null && [[ -d /var/lib/dpkg && -d /etc/apt ]] ; then
     apt-get update
     apt-get install curl mtools squashfs-tools grub-pc-bin grub-efi-amd64-bin grub2-common grub-common grub-efi-ia32-bin xorriso debootstrap binutils -y
-#    # For 17g package build
-#    apt-get install git devscripts equivs -y
 fi
 
 set -ex
@@ -33,47 +31,17 @@ mkdir chroot || true
 debootstrap --variant=minbase --arch=amd64 testing chroot https://deb.debian.org/debian
 echo "deb http://deb.debian.org/debian testing main contrib non-free non-free-firmware" > chroot/etc/apt/sources.list
 
-#### Set root password
-#pass="live"
-#echo -e "$pass\n$pass\n" | chroot chroot passwd
-
 #### Fix apt & bind
-# apt sandbox user root
-#echo "APT::Sandbox::User root;" > chroot/etc/apt/apt.conf.d/99sandboxroot
 for i in dev dev/pts proc sys; do mount -o bind /$i chroot/$i; done
 chroot chroot apt-get install gnupg -y
 
-##### Devuan only
-# chroot chroot apt-get install devuan-keyring -y
-
 
 #### grub packages
-#chroot chroot apt-get dist-upgrade -y
 chroot chroot apt-get install grub-pc-bin grub-efi-ia32-bin grub-efi -y
 
 #### live packages for debian/devuan
 chroot chroot apt-get install live-config live-boot -y
 echo "DISABLE_DM_VERITY=true" >> chroot/etc/live/boot.conf
-
-#### Configure system
-#cat > chroot/etc/apt/apt.conf.d/01norecommend << EOF
-#APT::Install-Recommends "0";
-#APT::Install-Suggests "0";
-#EOF
-
-# Set sh as bash inside of dash (optional)
-#rm -f chroot/bin/sh
-#ln -s bash chroot/bin/sh
-
-#### Remove bloat files after dpkg invoke (optional)
-cat > chroot/etc/apt/apt.conf.d/02antibloat << EOF
-DPkg::Post-Invoke {"rm -rf /usr/share/locale || true";};
-DPkg::Post-Invoke {"rm -rf /usr/share/man || true";};
-DPkg::Post-Invoke {"rm -rf /usr/share/help || true";};
-DPkg::Post-Invoke {"rm -rf /usr/share/doc || true";};
-DPkg::Post-Invoke {"rm -rf /usr/share/info || true";};
-DPkg::Post-Invoke {"rm -rf /usr/share/i18n || true";};
-EOF
 
 
 #### firmware
@@ -101,20 +69,6 @@ chroot chroot wget https://cdimage.debian.org/cdimage/firmware/testing/current/f
 
 chroot chroot apt-get install lightdm lightdm-gtk-greeter network-manager-gnome pulseaudio -y
 chroot chroot apt-get remove xterm -y
-
-#### Install 17g (optional)
-mkdir 17g-build && cd 17g-build 
-git clone https://gitlab.com/ggggggggggggggggg/17g && cd 17g
-mk-build-deps --install
-debuild -us -uc -b
-cd ../../
-cp 17g-build/17g*.deb chroot/tmp/17g.deb
-chroot chroot dpkg -i tmp/17g.deb || true
-chroot chroot apt-get install -f -y
-rm -f chroot/tmp/17g.deb
-
-#### Run chroot shell
-#chroot chroot /bin/bash || true
 
 #### usbcore stuff (for initramfs)
 echo "#!/bin/sh" > chroot/etc/initramfs-tools/scripts/init-top/usbcore.sh
@@ -145,9 +99,9 @@ for dir in dev dev/pts proc sys ; do
     while umount -lf -R chroot/$dir 2>/dev/null ; do true; done
 done
 # For better installation time
-#mksquashfs chroot filesystem.squashfs -comp gzip -wildcards
+mksquashfs chroot filesystem.squashfs -comp gzip -wildcards
 # For better compress ratio
-mksquashfs chroot filesystem.squashfs -comp xz -wildcards
+#mksquashfs chroot filesystem.squashfs -comp xz -wildcards
 
 ### move squashfs file
 mv filesystem.squashfs debian/live/filesystem.squashfs
