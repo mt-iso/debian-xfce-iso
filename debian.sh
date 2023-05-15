@@ -28,8 +28,8 @@ set -ex
 mkdir chroot || true
 
 ##### For debian
-debootstrap --variant=minbase --arch=amd64 testing chroot https://deb.debian.org/debian
-echo "deb http://deb.debian.org/debian testing main contrib non-free non-free-firmware" > chroot/etc/apt/sources.list
+debootstrap --variant=minbase --arch=amd64 yirmibir chroot http://depo.pardus.org.tr/pardus
+echo "deb http://depo.pardus.org.tr/pardus yirmibir main contrib non-free" > chroot/etc/apt/sources.list
 
 #### Fix apt & bind
 for i in dev dev/pts proc sys; do mount -o bind /$i chroot/$i; done
@@ -62,7 +62,25 @@ chroot chroot apt-get install linux-image-amd64 -y
 chroot chroot apt-get install xserver-xorg xinit -y
 
 #### Install xfce
-chroot chroot apt-get install wget xfce4 xfce4-goodies gvfs-backends inxi mintstick gnome-calculator file-roller synaptic -y
+### Xfce ve gerekli araçları kuralım
+chroot chroot apt-get install xfce4 xfce4-terminal xfce4-whiskermenu-plugin thunar thunar-archive-plugin xfce4-screenshooter mousepad ristretto -y
+chroot chroot apt-get install xfce4-datetime-plugin xfce4-timer-plugin xfce4-mount-plugin xfce4-taskmanager xfce4-battery-plugin xfce4-power-manager -y
+chroot chroot apt-get install network-manager-gnome gvfs-backends blueman qmplay2 -y
+
+### İsteğe bağlı paketleri kuralım
+chroot chroot apt-get install inxi gnome-calculator file-roller synaptic librewolf -y
+
+### Pardus paketleri kuralım 
+chroot chroot apt-get install pardus-xfce-settings pardus-locales pardus-software -y
+chroot chroot apt-get install pardus-package-installer pardus-installer pardus-about -y
+chroot chroot apt-get install pardus-dolunay-grub-theme pardus-gtk-theme pardus-icon-theme -y
+
+### Yazıcı tarayıcı ve bluetooth paketlerini kuralım (isteğe bağlı)
+chroot kaynak apt-get install printer-driver-all system-config-printer simple-scan -y
+
+
+### zorunlu kurulu gelen paketleri silelim (isteğe bağlı)
+chroot kaynak apt-get remove xterm termit xarchiver icedtea-netx -y
 
 
 chroot chroot wget https://cdimage.debian.org/cdimage/firmware/testing/current/firmware.zip
