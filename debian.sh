@@ -72,12 +72,7 @@ chroot chroot apt-get install inxi gnome-calculator file-roller synaptic -y
 
 
 ### Yazıcı tarayıcı ve bluetooth paketlerini kuralım (isteğe bağlı)
-chroot kaynak apt-get install printer-driver-all system-config-printer simple-scan -y
-
-
-### zorunlu kurulu gelen paketleri silelim (isteğe bağlı)
-chroot kaynak apt-get remove xterm termit xarchiver icedtea-netx -y
-
+chroot chroot apt-get install printer-driver-all system-config-printer simple-scan -y
 
 chroot chroot wget https://cdimage.debian.org/cdimage/firmware/testing/current/firmware.zip
 chroot chroot apt-get install lightdm lightdm-gtk-greeter network-manager-gnome pulseaudio -y
