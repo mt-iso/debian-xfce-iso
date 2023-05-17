@@ -30,12 +30,12 @@ mkdir chroot || true
 ##### For debian
 debootstrap --variant=minbase --arch=amd64 yirmibir chroot https://depo.pardus.org.tr/pardus
 ### depo eklemek için
-echo '### The Official Pardus Package Repositories ###' > kaynak/etc/apt/sources.list
-echo 'deb http://depo.pardus.org.tr/pardus yirmibir main contrib non-free' >> kaynak/etc/apt/sources.list
-echo '# deb-src http://depo.pardus.org.tr/pardus yirmibir main contrib non-free' >> kaynak/etc/apt/sources.list
-echo 'deb http://depo.pardus.org.tr/guvenlik yirmibir main contrib non-free' >> kaynak/etc/apt/sources.list
-echo '# deb-src http://depo.pardus.org.tr/guvenlik yirmibir main contrib non-free' >> kaynak/etc/apt/sources.list
-echo 'deb http://depo.pardus.org.tr/backports yirmibir-backports main contrib non-free' > kaynak/etc/apt/sources.list.d/yirmibir-backports.list
+echo '### The Official Pardus Package Repositories ###' > chroot/etc/apt/sources.list
+echo 'deb http://depo.pardus.org.tr/pardus yirmibir main contrib non-free' >> chroot/etc/apt/sources.list
+echo '# deb-src http://depo.pardus.org.tr/pardus yirmibir main contrib non-free' >> chroot/etc/apt/sources.list
+echo 'deb http://depo.pardus.org.tr/guvenlik yirmibir main contrib non-free' >> chroot/etc/apt/sources.list
+echo '# deb-src http://depo.pardus.org.tr/guvenlik yirmibir main contrib non-free' >> chroot/etc/apt/sources.list
+echo 'deb http://depo.pardus.org.tr/backports yirmibir-backports main contrib non-free' > chroot/etc/apt/sources.list.d/yirmibir-backports.list
 chroot chroot apt-get update
 
 #### Fix apt & bind
