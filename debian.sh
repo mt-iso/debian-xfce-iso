@@ -28,7 +28,7 @@ set -ex
 mkdir chroot || true
 
 ##### For debian
-debootstrap --variant=minbase --arch=amd64 yirmibir chroot http://depo.pardus.org.tr/pardus
+debootstrap --variant=minbase --arch=amd64 yirmibir chroot https://depo.pardus.org.tr/pardus
 ### depo eklemek için
 echo '### The Official Pardus Package Repositories ###' > kaynak/etc/apt/sources.list
 echo 'deb http://depo.pardus.org.tr/pardus yirmibir main contrib non-free' >> kaynak/etc/apt/sources.list
