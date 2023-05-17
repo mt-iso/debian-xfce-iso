@@ -36,7 +36,7 @@ echo '# deb-src http://depo.pardus.org.tr/pardus yirmibir main contrib non-free'
 echo 'deb http://depo.pardus.org.tr/guvenlik yirmibir main contrib non-free' >> kaynak/etc/apt/sources.list
 echo '# deb-src http://depo.pardus.org.tr/guvenlik yirmibir main contrib non-free' >> kaynak/etc/apt/sources.list
 echo 'deb http://depo.pardus.org.tr/backports yirmibir-backports main contrib non-free' > kaynak/etc/apt/sources.list.d/yirmibir-backports.list
-chroot kaynak apt update
+#chroot chroot apt-get update
 
 #### Fix apt & bind
 for i in dev dev/pts proc sys; do mount -o bind /$i chroot/$i; done
