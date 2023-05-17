@@ -28,8 +28,15 @@ set -ex
 mkdir chroot || true
 
 ##### For debian
-debootstrap --variant=minbase --arch=amd64 testing chroot https://deb.debian.org/debian
-echo "deb http://deb.debian.org/debian testing main contrib non-free non-free-firmware" > chroot/etc/apt/sources.list
+debootstrap --variant=minbase --arch=amd64 yirmibir chroot http://depo.pardus.org.tr/pardus
+### depo eklemek için
+echo '### The Official Pardus Package Repositories ###' > kaynak/etc/apt/sources.list
+echo 'deb http://depo.pardus.org.tr/pardus yirmibir main contrib non-free' >> kaynak/etc/apt/sources.list
+echo '# deb-src http://depo.pardus.org.tr/pardus yirmibir main contrib non-free' >> kaynak/etc/apt/sources.list
+echo 'deb http://depo.pardus.org.tr/guvenlik yirmibir main contrib non-free' >> kaynak/etc/apt/sources.list
+echo '# deb-src http://depo.pardus.org.tr/guvenlik yirmibir main contrib non-free' >> kaynak/etc/apt/sources.list
+echo 'deb http://depo.pardus.org.tr/backports yirmibir-backports main contrib non-free' > kaynak/etc/apt/sources.list.d/yirmibir-backports.list
+chroot kaynak apt update
 
 #### Fix apt & bind
 for i in dev dev/pts proc sys; do mount -o bind /$i chroot/$i; done
