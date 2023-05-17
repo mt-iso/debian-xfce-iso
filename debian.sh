@@ -30,7 +30,7 @@ mkdir chroot || true
 ##### For debian
 debootstrap --variant=minbase --arch=amd64 testing chroot https://deb.debian.org/debian
 echo "deb http://deb.debian.org/debian testing main contrib non-free non-free-firmware" > chroot/etc/apt/sources.list
-chroot chroot apt-get update
+
 
 #### Fix apt & bind
 for i in dev dev/pts proc sys; do mount -o bind /$i chroot/$i; done
