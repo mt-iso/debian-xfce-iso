@@ -73,9 +73,9 @@ chroot chroot apt-get install inxi gnome-calculator file-roller synaptic -y
 
 
 ### Yazıcı tarayıcı ve bluetooth paketlerini kuralım (isteğe bağlı)
-chroot chroot apt-get install printer-driver-all system-config-printer simple-scan -y
+#chroot chroot apt-get install printer-driver-all system-config-printer simple-scan -y
 
-chroot chroot wget https://cdimage.debian.org/cdimage/firmware/testing/current/firmware.zip
+#chroot chroot wget https://cdimage.debian.org/cdimage/firmware/testing/current/firmware.zip
 chroot chroot apt-get install lightdm lightdm-gtk-greeter network-manager-gnome pulseaudio -y
 chroot chroot apt-get remove xterm -y
 
@@ -108,9 +108,9 @@ for dir in dev dev/pts proc sys ; do
     while umount -lf -R chroot/$dir 2>/dev/null ; do true; done
 done
 # For better installation time
-mksquashfs chroot filesystem.squashfs -comp gzip -wildcards
+#mksquashfs chroot filesystem.squashfs -comp gzip -wildcards
 # For better compress ratio
-#mksquashfs chroot filesystem.squashfs -comp xz -wildcards
+mksquashfs chroot filesystem.squashfs -comp xz -wildcards
 
 ### move squashfs file
 mv filesystem.squashfs debian/live/filesystem.squashfs
