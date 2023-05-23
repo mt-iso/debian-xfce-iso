@@ -64,19 +64,21 @@ chroot chroot apt-get install xserver-xorg xinit -y
 
 #### Install xfce
 ### Xfce ve gerekli araçları kuralım
-chroot chroot apt-get install xfce4 xfce4-terminal xfce4-whiskermenu-plugin thunar thunar-archive-plugin xfce4-screenshooter mousepad ristretto -y
-chroot chroot apt-get install xfce4-datetime-plugin xfce4-timer-plugin xfce4-mount-plugin xfce4-taskmanager xfce4-battery-plugin xfce4-power-manager -y
-chroot chroot apt-get install network-manager-gnome gvfs-backends blueman -y
+chroot chroot apt-get install xfce4 xfce4-terminal -y
+#xfce4-whiskermenu-plugin thunar thunar-archive-plugin xfce4-screenshooter mousepad ristretto -y
+#chroot chroot apt-get install xfce4-datetime-plugin xfce4-timer-plugin xfce4-mount-plugin xfce4-taskmanager xfce4-battery-plugin xfce4-power-manager -y
+#chroot chroot apt-get install network-manager-gnome gvfs-backends blueman -y
 
 ### İsteğe bağlı paketleri kuralım
-chroot chroot apt-get install inxi gnome-calculator file-roller synaptic -y
+#chroot chroot apt-get install inxi gnome-calculator file-roller synaptic -y
 
 
 ### Yazıcı tarayıcı ve bluetooth paketlerini kuralım (isteğe bağlı)
 #chroot chroot apt-get install printer-driver-all system-config-printer simple-scan -y
 
 #chroot chroot wget https://cdimage.debian.org/cdimage/firmware/testing/current/firmware.zip
-chroot chroot apt-get install lightdm lightdm-gtk-greeter network-manager-gnome pulseaudio -y
+chroot chroot apt-get install lightdm lightdm-gtk-greeter 
+#network-manager-gnome pulseaudio -y
 chroot chroot apt-get remove xterm -y
 
 #### usbcore stuff (for initramfs)
