@@ -70,7 +70,7 @@ chroot chroot apt-get install network-manager-gnome gvfs-backends -y
 chroot chroot apt-get install lightdm lightdm-gtk-greeter -y
 
 # Fazlalık paketleri kaldıralım
-#chroot chroot apt-get remove xterm -y
+chroot chroot apt-get remove xterm -y
 
 #### usbcore stuff (for initramfs)
 echo "#!/bin/sh" > chroot/etc/initramfs-tools/scripts/init-top/usbcore.sh
