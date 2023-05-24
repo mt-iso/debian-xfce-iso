@@ -78,7 +78,7 @@ chroot chroot apt-get install xfce4 xfce4-terminal -y
 #chroot chroot apt-get install printer-driver-all system-config-printer simple-scan -y
 
 #chroot chroot wget https://cdimage.debian.org/cdimage/firmware/testing/current/firmware.zip
-chroot chroot apt-get install lightdm lightdm-gtk-greeter 
+chroot chroot apt-get install lightdm lightdm-gtk-greeter -y
 #network-manager-gnome pulseaudio -y
 chroot chroot apt-get remove xterm -y
 
