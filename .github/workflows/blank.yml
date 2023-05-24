@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: build
         run: |
-          sudo bash debian.sh
+          sudo bash devuan-live.sh
           sudo mkdir -p /output
           sudo mv devuan-x86.iso /output/devuan-x86.iso
 
