@@ -29,7 +29,7 @@ mkdir chroot || true
 
 ##### For debian
 debootstrap --variant=minbase --no-check-gpg --arch=amd64 testing chroot https://deb.devuan.org/devuan
-echo "deb http://deb.devuan.org/devuan testing main contrib non-free non-free-firmware" > chroot/etc/apt/sources.list
+echo "deb https://deb.devuan.org/devuan testing main contrib non-free non-free-firmware" > chroot/etc/apt/sources.list
 
 
 #### Fix apt & bind
