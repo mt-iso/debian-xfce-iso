@@ -46,41 +46,31 @@ chroot chroot apt-get install live-config live-boot -y
 echo "DISABLE_DM_VERITY=true" >> chroot/etc/live/boot.conf
 
 
-#### firmware
-
-# https://github.com/Whonix/whonix-legacy/blob/master/debian/whonix-legacy.preinst#L49
-#echo b43-fwcutter b43-fwcutter/cut_firmware boolean true | debconf-set-selections
-#echo firmware-ipw2x00 firmware-ipw2x00/license/accepted boolean true | debconf-set-selections
-#echo firmware-iwlwifi firmware-iwlwifi/license/accepted boolean true | debconf-set-selections
-#echo firmware-ralink firmware-ralink/license/accepted boolean true | debconf-set-selections
-
-
-
-#### stock kernel 
+#### kernel 
 chroot chroot apt-get install linux-image-amd64 -y
 #chroot chroot apt-get install linux-headers-amd64 -y
 
 #### xorg & desktop pkgs
 chroot chroot apt-get install xserver-xorg xinit -y
 
-#### Install xfce
 ### Xfce ve gerekli araçları kuralım
 chroot chroot apt-get install xfce4 xfce4-terminal -y
 #xfce4-whiskermenu-plugin thunar thunar-archive-plugin xfce4-screenshooter mousepad ristretto -y
 #chroot chroot apt-get install xfce4-datetime-plugin xfce4-timer-plugin xfce4-mount-plugin xfce4-taskmanager xfce4-battery-plugin xfce4-power-manager -y
-#chroot chroot apt-get install network-manager-gnome gvfs-backends blueman -y
+chroot chroot apt-get install network-manager-gnome gvfs-backends -y
 
 ### İsteğe bağlı paketleri kuralım
 #chroot chroot apt-get install inxi gnome-calculator file-roller synaptic -y
 
 
 ### Yazıcı tarayıcı ve bluetooth paketlerini kuralım (isteğe bağlı)
-#chroot chroot apt-get install printer-driver-all system-config-printer simple-scan -y
+#chroot chroot apt-get install printer-driver-all system-config-printer simple-scan blueman -y
 
 #chroot chroot wget https://cdimage.debian.org/cdimage/firmware/testing/current/firmware.zip
 chroot chroot apt-get install lightdm lightdm-gtk-greeter -y
-#network-manager-gnome pulseaudio -y
-chroot chroot apt-get remove xterm -y
+
+# Fazlalık paketleri kaldıralım
+#chroot chroot apt-get remove xterm -y
 
 #### usbcore stuff (for initramfs)
 echo "#!/bin/sh" > chroot/etc/initramfs-tools/scripts/init-top/usbcore.sh
