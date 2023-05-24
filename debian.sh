@@ -28,8 +28,8 @@ set -ex
 mkdir chroot || true
 
 ##### For debian
-debootstrap --variant=minbase --arch=amd64 testing chroot https://deb.debian.org/debian
-echo "deb http://deb.debian.org/debian testing main contrib non-free non-free-firmware" > chroot/etc/apt/sources.list
+debootstrap --variant=minbase --arch=amd64 testing chroot https://deb.devuan.org/devuan
+echo "deb http://deb.devuan.org/devuan testing main contrib non-free non-free-firmware" > chroot/etc/apt/sources.list
 
 
 #### Fix apt & bind
@@ -119,10 +119,10 @@ mv filesystem.squashfs debian/live/filesystem.squashfs
 
 #### Write grub.cfg
 mkdir -p debian/boot/grub/
-echo 'menuentry "Start Debian GNU/Linux 64-bit" --class debian {' > debian/boot/grub/grub.cfg
+echo 'menuentry "Start Devuan GNU/Linux 64-bit" --class debian {' > debian/boot/grub/grub.cfg
 echo '    linux /boot/vmlinuz boot=live live-config quiet --' >> debian/boot/grub/grub.cfg
 echo '    initrd /boot/initrd.img' >> debian/boot/grub/grub.cfg
 echo '}' >> debian/boot/grub/grub.cfg
 
 #### Create iso
-grub-mkrescue debian -o debian.iso
+grub-mkrescue debian -o devuan-x86.iso
