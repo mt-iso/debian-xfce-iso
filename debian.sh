@@ -27,9 +27,10 @@ set -ex
 #### Chroot create
 mkdir chroot || true
 
-##### For debian
-debootstrap --variant=minbase --no-check-gpg --arch=amd64 testing chroot http://deb.devuan.org/devuan
-echo "deb http://deb.devuan.org/devuan testing main contrib non-free non-free-firmware" > chroot/etc/apt/sources.list
+##### For devuan
+
+debootstrap --variant=minbase --no-check-gpg --arch=amd64 testing chroot https://pkgmaster.devuan.org/merged
+echo "deb https://pkgmaster.devuan.org/merged testing main contrib non-free non-free-firmware" > chroot/etc/apt/sources.list
 
 
 #### Fix apt & bind
