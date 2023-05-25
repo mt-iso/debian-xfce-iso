@@ -35,7 +35,7 @@ chroot kaynak apt-get install live-config live-boot -y
 chroot kaynak apt-get install xorg xinit lightdm -y
 
 ### firmware paketleri için (Burada kendi donanımınıza göre tercih yapabilirsiniz!) 
-#chroot kaynak apt-get install firmware-linux firmware-linux-free firmware-linux-nonfree firmware-misc-nonfree firmware-amd-graphics firmware-realtek bluez-firmware -y
+chroot kaynak apt-get install firmware-linux firmware-linux-free firmware-linux-nonfree firmware-misc-nonfree firmware-amd-graphics firmware-realtek bluez-firmware -y
 
 ### Xfce için gerekli paketleri kuralım
 chroot kaynak apt-get install xfce4 -y
