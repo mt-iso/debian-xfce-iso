@@ -51,7 +51,7 @@ chroot chroot apt-get install linux-image-amd64 -y
 #chroot chroot apt-get install linux-headers-amd64 -y
 
 ### firmwares
-chroot chroot apt-get install firmware-linux firmware-linux-nonfree -y
+#chroot chroot apt-get install firmware-linux firmware-linux-nonfree -y
 
 #### xorg & desktop pkgs
 chroot chroot apt-get install xserver-xorg xinit -y
