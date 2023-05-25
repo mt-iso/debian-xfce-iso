@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: build
         run: |
-          sudo bash devuan-live.sh
+          sudo bash debian-live.sh
           sudo mkdir -p /output
           sudo mv debian-xfce.iso /output/debian-xfce.iso
 
