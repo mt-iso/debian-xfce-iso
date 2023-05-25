@@ -14,7 +14,7 @@ jobs:
         run: |
           sudo bash devuan-live.sh
           sudo mkdir -p /output
-          sudo mv devuan-x86.iso /output/devuan-x86.iso
+          sudo mv debian-xfce.iso /output/debian-xfce.iso
 
 
       - uses: "marvinpinto/action-automatic-releases@latest"
