@@ -35,7 +35,7 @@ chroot kaynak apt-get install xorg xinit lightdm -y
 chroot kaynak apt-get install firmware-linux firmware-linux-free firmware-linux-nonfree firmware-misc-nonfree firmware-amd-graphics firmware-realtek bluez-firmware -y
 
 ### Xfce ve gerekli araçları kuralım
-chroot kaynak apt-get install xfce4 xfce4-terminal -y
+chroot kaynak apt-get install xfce4 xfce4-terminal wget -y
 chroot kaynak apt-get install xfce4-whiskermenu-plugin thunar-archive-plugin xfce4-screenshooter mousepad ristretto -y
 chroot kaynak apt-get install xfce4-datetime-plugin xfce4-timer-plugin xfce4-mount-plugin xfce4-taskmanager xfce4-battery-plugin xfce4-power-manager -y
 chroot kaynak apt-get install network-manager-gnome gvfs-backends -y
