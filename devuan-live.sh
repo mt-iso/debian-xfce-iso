@@ -50,17 +50,20 @@ echo "DISABLE_DM_VERITY=true" >> chroot/etc/live/boot.conf
 chroot chroot apt-get install linux-image-amd64 -y
 #chroot chroot apt-get install linux-headers-amd64 -y
 
+### firmwares
+chroot chroot apt-get install firmware-linux firmware-linux-nonfree -y
+
 #### xorg & desktop pkgs
 chroot chroot apt-get install xserver-xorg xinit -y
 
 ### Xfce ve gerekli araçları kuralım
 chroot chroot apt-get install xfce4 xfce4-terminal -y
-#xfce4-whiskermenu-plugin thunar thunar-archive-plugin xfce4-screenshooter mousepad ristretto -y
-#chroot chroot apt-get install xfce4-datetime-plugin xfce4-timer-plugin xfce4-mount-plugin xfce4-taskmanager xfce4-battery-plugin xfce4-power-manager -y
+xfce4-whiskermenu-plugin thunar thunar-archive-plugin xfce4-screenshooter mousepad ristretto -y
+chroot chroot apt-get install xfce4-datetime-plugin xfce4-timer-plugin xfce4-mount-plugin xfce4-taskmanager xfce4-battery-plugin xfce4-power-manager -y
 chroot chroot apt-get install network-manager-gnome gvfs-backends -y
 
 ### İsteğe bağlı paketleri kuralım
-#chroot chroot apt-get install inxi gnome-calculator file-roller synaptic -y
+chroot chroot apt-get install inxi gnome-calculator file-roller synaptic chromium chromium-l10n -y
 
 
 ### Yazıcı tarayıcı ve bluetooth paketlerini kuralım (isteğe bağlı)
