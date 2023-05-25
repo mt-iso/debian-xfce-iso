@@ -12,7 +12,6 @@ chown root kaynak
 
 ### Testing için
 debootstrap --arch=amd64 testing kaynak https://deb.debian.org/debian
-# debootstrap --arch=amd64 testing kaynak https://deb.debian.org/debian
 
 ### bind bağı için
 for i in dev dev/pts proc sys; do mount -o bind /$i kaynak/$i; done
@@ -36,15 +35,17 @@ chroot kaynak apt-get install xorg xinit lightdm -y
 ### firmware paketleri için (Burada kendi donanımınıza göre tercih yapabilirsiniz!) 
 chroot kaynak apt-get install firmware-linux firmware-linux-free firmware-linux-nonfree firmware-misc-nonfree firmware-amd-graphics firmware-realtek bluez-firmware -y
 
-### Xfce için gerekli paketleri kuralım
-chroot kaynak apt-get install xfce4 -y
-#xfce4-goodies network-manager-gnome papirus-icon-theme firefox firefox-l10n-tr -y
+### Xfce ve gerekli araçları kuralım
+chroot chroot apt-get install xfce4 xfce4-terminal -y
+chroot chroot apt-get install xfce4-whiskermenu-plugin thunar-archive-plugin xfce4-screenshooter mousepad ristretto -y
+chroot chroot apt-get install xfce4-datetime-plugin xfce4-timer-plugin xfce4-mount-plugin xfce4-taskmanager xfce4-battery-plugin xfce4-power-manager -y
+chroot chroot apt-get install network-manager-gnome gvfs-backends -y
 
 ### İsteğe bağlı paketleri kuralım
-#chroot kaynak apt-get install gvfs-backends inxi wget mintstick deepin-deb-installer gnome-calculator file-roller synaptic -y
+chroot chroot apt-get install inxi gnome-calculator file-roller synaptic chromium chromium-l10n -y
 
 ### Yazıcı tarayıcı ve bluetooth paketlerini kuralım (isteğe bağlı)
-#chroot kaynak apt-get install printer-driver-all system-config-printer simple-scan blueman -y
+chroot kaynak apt-get install printer-driver-all system-config-printer simple-scan blueman -y
 
 ### zorunlu kurulu gelen paketleri silelim (isteğe bağlı)
 chroot kaynak apt-get remove xterm termit xarchiver -y
@@ -74,7 +75,7 @@ cp -pf kaynak/boot/vmlinuz* isowork/live/vmlinuz
 ### grub işlemleri 
 mkdir -p isowork/boot/grub/
 echo 'insmod all_video' > isowork/boot/grub/grub.cfg
-echo 'menuentry "Start DEBIAN Unofficial 64-bit" --class debian {' >> isowork/boot/grub/grub.cfg
+echo 'menuentry "Start DEBIAN Testing Unofficial 64-bit" --class debian {' >> isowork/boot/grub/grub.cfg
 echo '    linux /live/vmlinuz boot=live live-config live-media-path=/live --' >> isowork/boot/grub/grub.cfg
 echo '    initrd /live/initrd.img' >> isowork/boot/grub/grub.cfg
 echo '}' >> isowork/boot/grub/grub.cfg
