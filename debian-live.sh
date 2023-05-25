@@ -46,6 +46,11 @@ chroot kaynak apt-get install inxi gnome-calculator file-roller synaptic chromiu
 ### Yazıcı tarayıcı ve bluetooth paketlerini kuralım (isteğe bağlı)
 chroot kaynak apt-get install printer-driver-all system-config-printer simple-scan blueman -y
 
+### Depo dışı paket kurma
+chroot kaynak wget https://github.com/muslimos/17g-installer/releases/download/current/17g-installer_1.0_all.deb
+chroot kaynak apt-get install ./17g-installer_1.0_all.deb -y
+chroot kaynak rm 17g-installer_1.0_all.deb
+
 ### zorunlu kurulu gelen paketleri silelim (isteğe bağlı)
 chroot kaynak apt-get remove xterm termit xarchiver -y
 
