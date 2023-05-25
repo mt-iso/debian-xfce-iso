@@ -81,4 +81,4 @@ echo '    initrd /live/initrd.img' >> isowork/boot/grub/grub.cfg
 echo '}' >> isowork/boot/grub/grub.cfg
 
 echo "ISO oluşturuluyor.."
-grub-mkrescue isowork -o debian-xfce-live-$(date +%x).iso
+grub-mkrescue isowork -o debian-xfce.iso
