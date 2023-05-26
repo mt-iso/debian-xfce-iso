@@ -69,7 +69,7 @@ find kaynak/var/log/ -type f | xargs rm -f
 
 ### isowork filesystem.squashfs oluşturmak için
 mkdir isowork
-mksquashfs kaynak filesystem.squashfs -comp gzip -wildcards
+mksquashfs kaynak filesystem.squashfs -comp XZ -wildcards
 mkdir -p isowork/live
 mv filesystem.squashfs isowork/live/filesystem.squashfs
 
