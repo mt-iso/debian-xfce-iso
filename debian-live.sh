@@ -3,7 +3,7 @@
 ### Debian Testing Live Unofficial ISO build
 
 ### gerekli paketler
-apt install debootstrap xorriso squashfs-tools mtools grub-pc-bin grub-efi -y
+apt install debootstrap xorriso squashfs-tools mtools grub-pc-bin grub-efi-amd64 -y
 
 ### Chroot oluşturmak için
 mkdir kaynak
