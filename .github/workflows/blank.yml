@@ -13,11 +13,8 @@ jobs:
       - name: build
         run: |
           sudo bash debian-xfce.sh
-          sudo bash debian-cinnamon.sh
           sudo mkdir -p /output
           sudo mv debian-xfce.iso /output/debian-xfce.iso
-          sudo mv debian-cinnamon.iso /output/debian-cinnamon.iso
-
 
 
       - uses: "marvinpinto/action-automatic-releases@latest"
