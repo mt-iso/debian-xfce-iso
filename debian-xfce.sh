@@ -41,7 +41,7 @@ chroot kaynak apt-get install xfce4-datetime-plugin xfce4-timer-plugin xfce4-mou
 chroot kaynak apt-get install network-manager-gnome gvfs-backends -y
 
 ### İsteğe bağlı paketleri kuralım
-chroot kaynak apt-get install inxi gnome-calculator file-roller synaptic chromium chromium-l10n -y
+chroot kaynak apt-get install inxi gnome-calculator file-roller synaptic -y
 
 ### Yazıcı tarayıcı ve bluetooth paketlerini kuralım (isteğe bağlı)
 chroot kaynak apt-get install printer-driver-all system-config-printer simple-scan blueman -y
