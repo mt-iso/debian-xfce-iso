@@ -17,7 +17,7 @@ for i in dev dev/pts proc sys; do mount -o bind /$i kaynak/$i; done
 
 ### Depo eklemek için
 echo 'deb http://deb.debian.org/debian testing main contrib non-free non-free-firmware' > kaynak/etc/apt/sources.list
-chroot kaynak apt update
+chroot kaynak apt update -y
 
 ### kernel paketini kuralım
 chroot kaynak apt-get install linux-image-amd64 -y
