@@ -16,8 +16,7 @@ debootstrap --arch=amd64 testing kaynak https://deb.debian.org/debian
 for i in dev dev/pts proc sys; do mount -o bind /$i kaynak/$i; done
 
 ### Depo eklemek için
-chroot kaynak /bin/bash
-echo 'deb http://deb.debian.org/debian testing main contrib non-free non-free-firmware' > /etc/apt/sources.list
+echo 'deb http://deb.debian.org/debian testing main contrib non-free non-free-firmware' > kaynak/etc/apt/sources.list
 chroot kaynak apt update
 
 ### kernel paketini kuralım
