@@ -20,43 +20,43 @@ echo 'deb http://deb.debian.org/debian testing main contrib non-free non-free-fi
 chroot kaynak apt update
 
 ### kernel paketini kuralım
-chroot kaynak apt-get install linux-image-amd64 -y
+chroot kaynak apt install linux-image-amd64 -y
 
 ### grub paketleri için
-chroot kaynak apt-get install grub-pc-bin grub-efi-ia32-bin grub-efi -y
+chroot kaynak apt install grub-pc-bin grub-efi-ia32-bin grub-efi -y
 
 ### live paketleri için
-chroot kaynak apt-get install live-config live-boot -y 
+chroot kaynak apt install live-config live-boot -y 
 
 ### init paketleri için
-chroot kaynak apt-get install xorg xinit lightdm -y
+chroot kaynak apt install xorg xinit lightdm -y
 
 ### firmware paketleri için (Burada kendi donanımınıza göre tercih yapabilirsiniz!) 
-chroot kaynak apt-get install firmware-linux firmware-linux-free firmware-linux-nonfree firmware-misc-nonfree firmware-amd-graphics firmware-realtek bluez-firmware -y
+chroot kaynak apt install firmware-linux firmware-linux-free firmware-linux-nonfree firmware-misc-nonfree firmware-amd-graphics firmware-realtek bluez-firmware -y
 
 ### Xfce ve gerekli araçları kuralım
-chroot kaynak apt-get install xfce4 xfce4-terminal wget -y
-chroot kaynak apt-get install xfce4-whiskermenu-plugin thunar-archive-plugin xfce4-screenshooter mousepad ristretto -y
-chroot kaynak apt-get install xfce4-datetime-plugin xfce4-timer-plugin xfce4-mount-plugin xfce4-taskmanager xfce4-battery-plugin xfce4-power-manager -y
-chroot kaynak apt-get install network-manager-gnome gvfs-backends -y
+chroot kaynak apt install xfce4 xfce4-terminal wget -y
+chroot kaynak apt install xfce4-whiskermenu-plugin thunar-archive-plugin xfce4-screenshooter mousepad ristretto -y
+chroot kaynak apt install xfce4-datetime-plugin xfce4-timer-plugin xfce4-mount-plugin xfce4-taskmanager xfce4-battery-plugin xfce4-power-manager -y
+chroot kaynak apt install network-manager-gnome gvfs-backends -y
 
 ### İsteğe bağlı paketleri kuralım
-chroot kaynak apt-get install inxi gnome-calculator file-roller synaptic -y
+chroot kaynak apt install inxi gnome-calculator file-roller synaptic -y
 
 ### Yazıcı tarayıcı ve bluetooth paketlerini kuralım (isteğe bağlı)
-chroot kaynak apt-get install printer-driver-all system-config-printer simple-scan blueman -y
+chroot kaynak apt install printer-driver-all system-config-printer simple-scan blueman -y
 
 ### Depo dışı paket kurma
 chroot kaynak wget https://github.com/muslimos/17g-installer/releases/download/current/17g-installer_1.0_all.deb
-chroot kaynak apt-get install ./17g-installer_1.0_all.deb -y
+chroot kaynak apt install ./17g-installer_1.0_all.deb -y
 chroot kaynak rm 17g-installer_1.0_all.deb
 
 ### zorunlu kurulu gelen paketleri silelim (isteğe bağlı)
-chroot kaynak apt-get remove xterm termit xarchiver -y
+chroot kaynak apt remove xterm termit xarchiver -y
 
 ### Zorunlu değil ama grub güncelleyelim
 chroot kaynak update-grub
-chroot kaynak apt-get upgrade -y
+chroot kaynak apt upgrade -y
 
 umount -lf -R kaynak/* 2>/dev/null
 
