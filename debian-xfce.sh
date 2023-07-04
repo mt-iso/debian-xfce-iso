@@ -17,6 +17,9 @@ for i in dev dev/pts proc sys; do mount -o bind /$i kaynak/$i; done
 
 ### Depo eklemek için
 echo 'deb http://deb.debian.org/debian testing main contrib non-free non-free-firmware' > kaynak/etc/apt/sources.list
+echo 'deb http://security.debian.org/debian-security testing-security main contrib non-free non-free-firmware' >> kaynak/etc/apt/sources.list
+
+
 chroot kaynak apt update
 
 ### kernel paketini kuralım
