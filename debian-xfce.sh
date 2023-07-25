@@ -51,7 +51,7 @@ chroot kaynak apt install inxi gnome-calculator file-roller synaptic -y
 chroot kaynak apt install printer-driver-all system-config-printer simple-scan blueman -y
 
 ### Depo dışı paket kurma
-chroot kaynak wget https://github.com/mt-iso/17g-installer/releases/download/current/17g-installer_1.0_all.deb
+chroot kaynak wget https://github.com/mt-iso/debhane/raw/main/17g-installer_1.0_all.deb
 chroot kaynak apt install ./17g-installer_1.0_all.deb -y
 chroot kaynak rm 17g-installer_1.0_all.deb
 
