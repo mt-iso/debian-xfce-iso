@@ -1,1 +1,1 @@
-# Debian Xfce Testing Unofficial
+# Debian Testing Xfce Unofficial
