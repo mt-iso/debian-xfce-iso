@@ -23,7 +23,7 @@ echo 'deb http://security.debian.org/debian-security testing-security main contr
 chroot kaynak apt update
 
 ### kernel paketini kuralım
-chroot kaynak apt install linux-image-amd64 -y
+chroot kaynak apt install linux-image-amd64 linux-headers-amd64 -y
 
 ### grub paketleri için
 chroot kaynak apt install grub-pc-bin grub-efi-ia32-bin grub-efi -y
