@@ -16,7 +16,6 @@ on:
           sudo mkdir -p /output
           sudo mv debian-xfce.iso /output/debian-xfce.iso
 
-
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
