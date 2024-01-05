@@ -19,9 +19,9 @@ jobs:
                 image: debian:testing
                 options: -v ${{ github.workspace }}:/root -v /output:/output
                 run: |
-          sudo bash debian-xfce.sh
-          sudo mkdir -p /output
-          sudo mv debian-cinnamon.iso /output/debian-cinnamon.iso
+          bash debian-xfce.sh
+          mkdir -p /output
+          mv debian-cinnamon.iso /output/debian-cinnamon.iso
 
                     
           - uses: "marvinpinto/action-automatic-releases@latest"
