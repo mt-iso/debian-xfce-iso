@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  schedule:
+    - cron: "0 0 * * 6"
+   
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: build
+        run: |
+          sudo bash debian-xfce.sh
+          sudo mkdir -p /output
+          sudo mv debian-cinnamon.iso /output/debian-xfce.iso
+
+
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "main"
+          prerelease: false
+          title: "Daily build"
+          files: |
+            /output/*
