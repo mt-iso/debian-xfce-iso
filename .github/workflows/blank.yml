@@ -24,6 +24,6 @@ jobs:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "main"
           prerelease: false
-          title: "Daily build"
+          title: "Week build"
           files: |
             /output/*
